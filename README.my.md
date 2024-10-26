@@ -1,5 +1,7 @@
 # react-test-vite
 
+<!-- Викладач Сергій Дринкін -->
+
 - в googl встановити: React Developer Tools; JSON Formatter ;
 - в VScode встановити: ESLint; Prettier;
 

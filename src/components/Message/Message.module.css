@@ -1,0 +1,15 @@
+.title {
+  text-align: center;
+}
+.icon {
+  width: 25px;
+  height: 25px;
+  transition: all 0.4s ease;
+
+  &:hover {
+    color: gold;
+    width: 15px;
+    transform: rotate(180deg);
+    height: 15px;
+  }
+}

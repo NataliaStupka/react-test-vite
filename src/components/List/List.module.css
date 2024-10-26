@@ -1,0 +1,8 @@
+.film_title {
+  width: 60%;
+  background-color: rgb(213, 226, 244);
+}
+.button {
+  border: 1px solid brown;
+  border-radius: 4px;
+}

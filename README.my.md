@@ -2,6 +2,12 @@
 
 <!-- Викладач Сергій Дринкін -->
 
+# 1.
+
+# Створення проекту
+
+# Компоненти
+
 - в googl встановити: React Developer Tools; JSON Formatter ;
 - в VScode встановити: ESLint; Prettier;
 

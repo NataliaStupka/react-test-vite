@@ -6,6 +6,8 @@ import 'modern-normalize'; //стилі з файлу нормалізації
 
 import App from './components/App.jsx';
 
+//<StrictMode> змушує кожний компонент монтуватися двічі (монтування > розмонтування > монтування).
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />

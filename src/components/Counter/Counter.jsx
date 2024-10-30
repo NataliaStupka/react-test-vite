@@ -7,6 +7,8 @@ import s from './Counter.module.css';
 // 3. Без умов, без циклів, не в іншій функції
 // 4. Xуки починаються з ключового слова 'use'
 
+//prev - попереднє значення
+
 const Counter = () => {
   const [counter, setCounter] = useState(0); //useState - початкове значення, передасть в counter
   const [step, setStep] = useState(5);
@@ -35,13 +37,13 @@ const Counter = () => {
         />
         <div className={s.flex}>
           <button className="btn" onClick={handleMinusClick}>
-            minus
+            minus 1
           </button>
           <button className="btn" onClick={handleReset}>
             reset
           </button>
           <button className="btn" onClick={handlePlusClick}>
-            plus
+            plus {step}
           </button>
         </div>
       </div>
@@ -50,3 +52,44 @@ const Counter = () => {
 };
 
 export default Counter;
+
+// //--=-=-=-=-- ЧЕРЕЗ Class --=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--
+// import { Component } from 'react';
+
+// class Counter extends Component {
+//   state = {
+//     value: 0,
+//   };
+
+//   handlePlusClick = () =>
+//     this.setState(prevState => ({ value: prevState.value + 1 }));
+//   handleMinusClick = () =>
+//     this.setState(prevState => ({ value: prevState.value - 1 }));
+//   handleReset = () => this.setState({ value: 0 });
+
+//   render() {
+//     const { value } = this.state; //деструктуризація
+
+//     return (
+//       <div className={s.flexContainer}>
+//         <div className={s.wrapper}>
+//           <h1>{value}</h1>
+
+//           <div className={s.flex}>
+//             <button className="btn" onClick={this.handleMinusClick}>
+//               minus 1
+//             </button>
+//             <button className="btn" onClick={this.handleReset}>
+//               reset
+//             </button>
+//             <button className="btn" onClick={this.handlePlusClick}>
+//               plus 1
+//             </button>
+//           </div>
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// export default Counter;

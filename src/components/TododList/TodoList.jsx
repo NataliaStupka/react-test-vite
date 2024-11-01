@@ -33,7 +33,7 @@ const TodoList = () => {
   return (
     <>
       {/* Додаємо замітку */}
-      <div className="flex">
+      <div className={s.flex}>
         <input
           value={newValue}
           //записали нову замітку input=====

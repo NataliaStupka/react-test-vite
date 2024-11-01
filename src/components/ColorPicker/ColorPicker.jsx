@@ -4,7 +4,7 @@ import s from './ColorPicker.module.css'; //стилі
 
 const ColorPicker = () => {
   const [currentColor, setCurentColor] = useState('orange'); //початково обранний колір - orange (currentColor)
-  console.log('currentColor:', currentColor);
+  //console.log('currentColor:', currentColor);
   return (
     // змінюємо колір background на обранний колір
     <section style={{ backgroundColor: currentColor }} className={s.bgWrapper}>

@@ -3,6 +3,7 @@
   place-content: center;
   height: 100vh;
   transition: background-color 0.5s linear;
+  margin-bottom: 40px;
 }
 .pallette {
   text-align: center;

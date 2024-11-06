@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css'; //глобальні стилі
 import 'modern-normalize'; //стилі з файлу нормалізації
 
-import App from './components/App.jsx';
+import App from './components/App/App';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

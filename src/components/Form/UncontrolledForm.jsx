@@ -16,7 +16,14 @@ const UncontrolledForm = () => {
   };
 
   return (
-    <div style={{ paddingTop: '40px' }}>
+    <div
+      style={{
+        paddingTop: '20px',
+        border: '1px solid red ',
+        marginBottom: '30px',
+      }}
+    >
+      <h2>Uncontroled Form:</h2>
       <form onSubmit={handleSubmit}>
         <label style={{ marginRight: '10px' }}>
           <span>Name:</span>

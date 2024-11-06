@@ -52,7 +52,14 @@ const Form = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        border: '1px solid green',
+        paddingTop: '20px',
+        marginBottom: '30px',
+      }}
+    >
+      <h2>Controled Form</h2>
       <form onSubmit={handleSubmit}>
         <label>
           <span>Name:</span>

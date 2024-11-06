@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 const Vote = () => {
-  console.log('Голосуємо.');
+  // console.log('Голосуємо.');
 
   //useState це об'єкт. -= прописуємо Початкові значення =-
   const [voteData, setVoteData] = useState({
@@ -12,8 +12,8 @@ const Vote = () => {
     symbian: 0,
     other: 0,
   });
-  console.log('ключі:', Object.keys(voteData));
-  console.log('значення:', Object.values(voteData));
+  // console.log('ключі:', Object.keys(voteData));
+  // console.log('значення:', Object.values(voteData));
 
   //click на кнопку vote
   const handleClickVoit = value => {

@@ -3,7 +3,10 @@
 //Formik має 2 обов'язкові поля: onSubmit={}, c={}
 import { Field, Form, Formik } from 'formik';
 
+import s from './OrderForm.module.css';
+
 const OrderForm = () => {
+  //values це initialValues
   const handleSubmit = (values, options) => {
     console.log(values);
   };
@@ -11,27 +14,103 @@ const OrderForm = () => {
     username: '',
     tel: '',
     email: '',
+    petType: '',
+    desire: '',
+    agree: false,
+    gender: 'male',
   };
 
   return (
-    <div>
+    <div className={s.wrapper}>
+      {/* тег Formik не стилізується*/}
       <Formik onSubmit={handleSubmit} initialValues={initialValues}>
-        <Form>
-          <label>
+        <Form className={s.form}>
+          {/* input */}
+          <label className={s.label}>
             <span>Ім'я</span>
-            <Field type="text" name="username" placeholder="Введіть ім'я" />
+            <Field
+              className={s.input}
+              type="text"
+              name="username"
+              placeholder="Введіть ім'я"
+            />
           </label>
 
-          <label>
+          <label className={s.label}>
             <span>Телефон</span>
-            <Field type="text" name="tel" placeholder="Номер телефону" />
+            <Field
+              className={s.input}
+              type="text"
+              name="tel"
+              placeholder="Номер телефону"
+            />
           </label>
 
-          <label>
+          <label className={s.label}>
             <span>Email</span>
-            <Field type="email" name="email" placeholder="Email" />
+            <Field
+              className={s.input}
+              type="email"
+              name="email"
+              placeholder="Email"
+            />
           </label>
-          <button type="submit">Order</button>
+
+          {/* textarea */}
+          <label className={s.label}>
+            <span>Побажання</span>
+            <Field
+              className={s.input}
+              as="textarea"
+              name="desire"
+              placeholder="Введіть побажання"
+            />
+          </label>
+
+          {/* select */}
+          <label className={s.label}>
+            <span>Тип улюбленця</span>
+            <Field className={s.input} as="select" name="petType">
+              {/* disabled - не можемо обрати */}
+              <option disabled value="">
+                Оберіть з варіантів:
+              </option>
+              <option value="cat">Кіт</option>
+              <option value="dog">Собака</option>
+              <option value="bird">Пташка</option>
+              <option value="rodent">Гризун</option>
+            </Field>
+          </label>
+
+          {/* radiobatton */}
+          <div>
+            <label>
+              <Field
+                type="radio"
+                value="male"
+                className={s.input}
+                name="gender"
+              />
+              <span>Хлопчик</span>
+            </label>
+            <label>
+              <Field
+                type="radio"
+                value="female"
+                className={s.input}
+                name="gender"
+              />
+              <span>Дівчинка</span>
+            </label>
+          </div>
+
+          {/* checkbox */}
+          <label>
+            <Field type="checkbox" className={s.input} name="agree" />
+            <span>Приймаю всі правила платформи</span>
+          </label>
+
+          <button type="submit">Обрати</button>
         </Form>
       </Formik>
     </div>

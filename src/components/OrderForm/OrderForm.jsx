@@ -1,6 +1,7 @@
 //Formik
 //обгортка Formik, потім Form. Усі input тепер це Field
 //Formik має 2 обов'язкові поля: onSubmit={}, c={}
+// as - textarea, select, всі інші через type
 import { Field, Form, Formik } from 'formik';
 
 import s from './OrderForm.module.css';
@@ -9,6 +10,8 @@ const OrderForm = () => {
   //values це initialValues
   const handleSubmit = (values, options) => {
     console.log(values);
+    options.resetForm(); // очистка форми
+    //console.log(options);
   };
   const initialValues = {
     username: '',

@@ -1,17 +1,10 @@
-import UncontrolledForm from './Form/UncontrolledForm'; // неконтрольована
-import Form from './Form/Form'; //ControlledForm;
-import UseIdExaple from './UseIdExaple/UseIdExaple';
+import OrderForm from './OrderForm/OrderForm';
 
 const App = () => {
   return (
     <div>
-      <h1>Forms</h1>
-      <UncontrolledForm />
-      <Form />
-
-      {/* useId */}
-      <p> З формами використовуємо тільки useId.</p>
-      <UseIdExaple />
+      <h1>Formik</h1>
+      <OrderForm />
     </div>
   );
 };

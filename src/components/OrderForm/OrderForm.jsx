@@ -2,7 +2,8 @@
 //обгортка Formik, потім Form. Усі input тепер це Field
 //Formik має 2 обов'язкові поля: onSubmit={}, c={}
 // as - textarea, select, всі інші через type
-import { Field, Form, Formik } from 'formik';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
+import * as Yup from 'yup';
 
 import s from './OrderForm.module.css';
 
@@ -13,10 +14,30 @@ const OrderForm = () => {
     options.resetForm(); // очистка форми
     //console.log(options);
   };
+
+  //для валідації email (враховує @i.com)
+  const re =
+    /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+  const orderShema = Yup.object().shape({
+    username: Yup.string()
+      .min(3, 'Поле не може бути менше ніж 3 символи')
+      .max(20, 'Поле не може бути більше ніж 20 символів')
+      .required("Це поле обов'язкове"),
+    email: Yup.string()
+      .matches(re, 'Не є емейлом')
+      .required("Це поле обов'язкове"),
+    range: Yup.number().min(10).max(20),
+    tel: Yup.number().required("Це поле обов'язкове"),
+    desire: Yup.string().min(3).max(120),
+    // прописати oneOf, від взлому. Можна map і передати в oneOf
+    petType: Yup.string().oneOf(['cat', 'dog', 'bird', 'rodent']),
+  });
+
   const initialValues = {
     username: '',
     tel: '',
     email: '',
+    range: 0,
     petType: '',
     desire: '',
     agree: false,
@@ -26,7 +47,11 @@ const OrderForm = () => {
   return (
     <div className={s.wrapper}>
       {/* тег Formik не стилізується*/}
-      <Formik onSubmit={handleSubmit} initialValues={initialValues}>
+      <Formik
+        validationSchema={orderShema}
+        onSubmit={handleSubmit}
+        initialValues={initialValues}
+      >
         <Form className={s.form}>
           {/* input */}
           <label className={s.label}>
@@ -36,6 +61,11 @@ const OrderForm = () => {
               type="text"
               name="username"
               placeholder="Введіть ім'я"
+            />
+            <ErrorMessage
+              name="username"
+              component="span"
+              className={s.error}
             />
           </label>
 
@@ -47,6 +77,7 @@ const OrderForm = () => {
               name="tel"
               placeholder="Номер телефону"
             />
+            <ErrorMessage name="tel" component="span" className={s.error} />
           </label>
 
           <label className={s.label}>
@@ -57,6 +88,14 @@ const OrderForm = () => {
               name="email"
               placeholder="Email"
             />
+            <ErrorMessage name="email" component="span" className={s.error} />
+          </label>
+
+          {/* range */}
+          <label className={s.label}>
+            <span>Вік</span>
+            <Field className={s.input} type="range" name="range" />
+            <ErrorMessage name="range" component="span" className={s.error} />
           </label>
 
           {/* textarea */}
@@ -68,6 +107,7 @@ const OrderForm = () => {
               name="desire"
               placeholder="Введіть побажання"
             />
+            <ErrorMessage name="desire" component="span" className={s.error} />
           </label>
 
           {/* select */}
@@ -83,6 +123,7 @@ const OrderForm = () => {
               <option value="bird">Пташка</option>
               <option value="rodent">Гризун</option>
             </Field>
+            <ErrorMessage name="petType" component="span" className={s.error} />
           </label>
 
           {/* radiobatton */}

@@ -20,6 +20,7 @@ const TodoList = () => {
     //поверне тільки ті, що не = вибраному id
     setTodos(prev => prev.filter(item => item.id !== id));
   };
+
   //(*1) зберігаємо в localStorage
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));

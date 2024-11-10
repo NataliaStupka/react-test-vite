@@ -4,4 +4,5 @@
 
 1. useState; const [name, setName] = useState;
 2. для генерування id (npm i nanoid)
-3. useEffect; const(() => {}, []) = useEfect;
+3. useEfect(() => {}, []);
+<!-- useEffect(() => {що робимо, при змінні того за чим слідкуємо}, [за чим слідкуємо]) -->

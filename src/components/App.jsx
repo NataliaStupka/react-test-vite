@@ -1,48 +1,66 @@
 //components
-import Counter from './Counter/Counter';
-import ColorPicker from './ColorPicker/ColorPicker';
-import TodoList from './TododList/TodoList';
-import Modal from './Modal/Modal';
-import Vote from './Vote/Vote';
+import Articles from './Articles/Articles';
+import Loader from './Loader.jsx/Loader';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Formik, Form, Field } from 'formik'; //форма
 
+import { fetchArticle } from '../services/api'; //запит
+
+//fetch робимо в useEffect, замість fetch використовуємо axios (resp.data.)
 const App = () => {
-  //для модалки----
-  const [isOpen, setIsOpen] = useState(false); //на початку модалка схована
-  const openModal = () => setIsOpen(true); //відкриває модалку
-  const closeModal = () => setIsOpen(false); //закриває модалку
-  //------
+  const [articles, setArticles] = useState([]); //статті
+  const [isLoading, setIsLoading] = useState(false); //Loader(завантажувач)
+  const [isError, setIsError] = useState(false); //помилка
+
+  useEffect(() => {
+    //створюємо функцію getData
+    const getData = async () => {
+      try {
+        setIsLoading(true);
+        //обнуляємо все при новому запиті
+        setIsError(false);
+
+        //деструктуризація
+        const { hits } = await fetchArticle(); //приходить data
+
+        setArticles(hits); // записали в articles те що прийшло
+      } catch (error) {
+        setIsError(true);
+
+        console.log(error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    getData();
+  }, []);
+
   return (
     <div>
-      <Vote />
+      <h1>HTTP запит, Axios, async/await, pagination</h1>
 
-      <button
-        onClick={openModal}
-        style={{
-          backgroundColor: 'pink ',
-          borderRadius: '4px',
-          border: '1px solid black',
-        }}
-      >
-        Open Modal
-      </button>
+      {/* якщо true то показує завантажувач */}
+      {isLoading && <Loader />}
+      <Articles articles={articles} />
+      {isError && <h2>Щось сталось! Онови сторінку або спрбуй пізніше.</h2>}
 
-      {/* якщо isOpen=true, то відкривається модалка */}
-      {isOpen && (
-        <Modal onClose={closeModal}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-          animi impedit dolorem libero corporis eaque. Commodi, soluta earum!
-          Veritatis nemo molestias inventore recusandae, laboriosam unde.
-          Reiciendis voluptatem dignissimos possimus delectus.
-        </Modal>
-      )}
-
-      <Counter />
-      <ColorPicker />
-      <TodoList />
+      <Formik>
+        <Form>
+          <Field />
+        </Form>
+      </Formik>
+      <button>Find</button>
     </div>
   );
 };
 
 export default App;
+
+// замінили на async/await
+// useEffect(() => {
+//   axios
+//     .get('http://hn.algolia.com/api/v1/search?query=react')
+//     .then(resp => setArticles(resp.data.hits));
+// }, []);

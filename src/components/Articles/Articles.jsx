@@ -1,21 +1,16 @@
 //rafce - 'розгорнути' компонент
 
-
-
-
 const Articles = ({ articles }) => {
-
-
   return (
     <div>
-     
+      <h2>Articles:</h2>
       <ul>
         {articles.map(post => (
-          <li
-            key={post.objectID}
-            style={{ border: '1px solid pink', marginBottom: '5px' }}
-          >
-            <a href={post.url}>{post.title}</a>
+          <li key={post.objectID}>
+            {/* з бекенду може прийти title, а може і story_title та інше */}
+            <a href={post.url ?? post.story_url}>
+              {post.title ?? post.story_title}
+            </a>
           </li>
         ))}
       </ul>

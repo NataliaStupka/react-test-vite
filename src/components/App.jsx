@@ -1,7 +1,7 @@
 //components
+import SearchBar from './SearchBar/SearchBar';
 import Articles from './Articles/Articles';
 import Loader from './Loader.jsx/Loader';
-import SearchBar from './SearchBar/SearchBar';
 
 import { useEffect, useState } from 'react';
 
@@ -34,6 +34,7 @@ const App = () => {
 
         //деструктуризація              передаємо занчення і сторінку
         const { hits, nbPages } = await fetchArticles(query, page); //приходить data
+        console.log(hits); //[{},{},..,{}]
         setNbPage(nbPages);
         setArticles(prev => [...prev, ...hits]); // записали в articles те що прийшло (і те що було до цього(load more))
       } catch (error) {

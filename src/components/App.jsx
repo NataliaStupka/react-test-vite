@@ -79,10 +79,3 @@ const App = () => {
 };
 
 export default App;
-
-// замінили на async/await
-// useEffect(() => {
-//   axios
-//     .get('http://hn.algolia.com/api/v1/search?query=react')
-//     .then(resp => setArticles(resp.data.hits));
-// }, []);

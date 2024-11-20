@@ -76,7 +76,7 @@ const Counter = () => {
         <h3 style={{ color: 'white' }}>Result:{result}</h3>
         <button onClick={() => setTestValue(prev => prev + 1)}>Click</button>
 
-        {/* Open Modal */}
+        {/* Open Modal #3 */}
         {isOpen && <Modal onClose={closeModal}>🦊</Modal>}
         <button onClick={openModal}>Open Modal</button>
 

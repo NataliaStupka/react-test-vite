@@ -16,6 +16,7 @@ const Header = () => {
         <p>Welcome {username}</p>
         <button onClick={logout}>Logout</button>
 
+        {/* Open modal #2 */}
         <button onClick={openModal}>Open Modal</button>
         {isOpen && (
           <Modal onClose={closeModal} style={{ color: 'black' }}>

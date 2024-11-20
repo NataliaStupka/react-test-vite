@@ -30,6 +30,7 @@ const App = () => {
       <ForwardRef />
       <ContextExample auto="Audi" />
 
+      {/* Open Modal #1 */}
       {isOpen && (
         <Modal onClose={closeModal}>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Omnis, alias

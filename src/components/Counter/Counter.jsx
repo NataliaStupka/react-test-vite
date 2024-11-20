@@ -1,35 +1,56 @@
-import { useState } from 'react';
+// !! коли міняється State то оновлюється компонент, коли Ref - оновлення компонента не іде
+
+import { useState, useMemo, useRef, useEffect } from 'react';
 import s from './Counter.module.css';
-
-// RULES Xуки
-// 1. Тільки в функціональному компоненті
-// 2. Тільки в КОМПОНЕНТІ (З ВЕЛИКОЇ ЛІТЕРИ НАША ФУНКЦІЯ)
-// 3. Без умов, без циклів, не в іншій функції
-// 4. Xуки починаються з ключового слова 'use'
-
-//prev - попереднє значення
 
 const Counter = () => {
   const [counter, setCounter] = useState(0); //useState - початкове значення, передасть в counter
   const [step, setStep] = useState(5);
+  const [testValue, setTestValue] = useState(1);
+  const refBtn = useRef(); //імітація натискання кнопки
+  const fileRef = useRef(); //обрати файл з диску
+
+  //рахує кількість рендерів
+  const renderCounter = useRef(0);
+  useEffect(() => {
+    console.log(renderCounter.current++);
+  }); //прибираємо залежність
 
   const handleMinusClick = () => {
     setCounter(prev => prev - 1);
   };
   const handlePlusClick = () => {
     //setCounter(prev => prev + 1);
-    setCounter(prev => prev + step); //додаємо, що введено в input
+    setCounter(prev => prev + 1); //додаємо, що введено в input
   };
   const handleReset = () => {
     setCounter(0); //обнуляє лічильник
     setStep(0); //обнуляє input
   };
 
+  //useEffect читається після монтажу
+  useEffect(() => {
+    console.log(refBtn); // подивитися все що доступно в refBtn
+
+    // //імітуємо натискання плюса кожну секунду
+    // setInterval(() => {
+    //   refBtn.current.click();
+    // }, 1000);
+  }, []);
+
+  //те, що буде в ==- useMemo -==, без зміни: виконається, запам'ятає і буде ввідавати без перерендеру наступні рази
+  const result = useMemo(() => {
+    console.log('Calck start');
+    console.log('Calck End');
+    return testValue * testValue;
+  }, [testValue]); // змінює тільки тоді коли змінюється testValue
+
   return (
     <div className={s.flexContainer}>
       <div className={s.wrapper}>
         <h1>{counter}</h1>
         <input
+          value={step}
           onChange={e => {
             //console.log('значення input:', Number(e.target.value));
             setStep(+e.target.value);
@@ -42,54 +63,27 @@ const Counter = () => {
           <button className="btn" onClick={handleReset}>
             reset
           </button>
-          <button className="btn" onClick={handlePlusClick}>
-            plus {step}
+          <button ref={refBtn} className="btn" onClick={handlePlusClick}>
+            plus 1
           </button>
         </div>
+        <h3 style={{ color: 'white' }}>Result:{result}</h3>
+        <button onClick={() => setTestValue(prev => prev + 1)}>Click</button>
+
+        {/* Обрати файл */}
+        <input ref={fileRef} style={{ visibility: 'hidden' }} type="file" />
+        <button onClick={() => fileRef.current.click()}>Обрати файл</button>
+
+        <button
+          onClick={() => {
+            renderCounter.current++;
+          }}
+        >
+          Render count: {renderCounter.current}
+        </button>
       </div>
     </div>
   );
 };
 
 export default Counter;
-
-// //--=-=-=-=-- ЧЕРЕЗ Class --=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--
-// import { Component } from 'react';
-
-// class Counter extends Component {
-//   state = {
-//     value: 0,
-//   };
-
-//   handlePlusClick = () =>
-//     this.setState(prevState => ({ value: prevState.value + 1 }));
-//   handleMinusClick = () =>
-//     this.setState(prevState => ({ value: prevState.value - 1 }));
-//   handleReset = () => this.setState({ value: 0 });
-
-//   render() {
-//     const { value } = this.state; //деструктуризація
-
-//     return (
-//       <div className={s.flexContainer}>
-//         <div className={s.wrapper}>
-//           <h1>{value}</h1>
-
-//           <div className={s.flex}>
-//             <button className="btn" onClick={this.handleMinusClick}>
-//               minus 1
-//             </button>
-//             <button className="btn" onClick={this.handleReset}>
-//               reset
-//             </button>
-//             <button className="btn" onClick={this.handlePlusClick}>
-//               plus 1
-//             </button>
-//           </div>
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Counter;

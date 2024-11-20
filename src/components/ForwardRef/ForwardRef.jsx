@@ -11,7 +11,14 @@ const ForwardRef = () => {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        border: '2px solid black',
+        padding: '10px',
+        backgroundColor: 'lightGrey',
+      }}
+    >
+      <h2>forwardRef:</h2>
       <CustomInput
         ref={inputRef}
         placeholder="Натисніть на кнопку для фокусу"

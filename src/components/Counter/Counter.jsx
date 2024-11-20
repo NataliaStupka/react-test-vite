@@ -3,6 +3,9 @@
 import { useState, useMemo, useRef, useEffect } from 'react';
 import s from './Counter.module.css';
 
+import { useToogle } from '../../hooks/useToggle';
+import Modal from '../Modal/Modal';
+
 const Counter = () => {
   const [counter, setCounter] = useState(0); //useState - початкове значення, передасть в counter
   const [step, setStep] = useState(5);
@@ -45,6 +48,9 @@ const Counter = () => {
     return testValue * testValue;
   }, [testValue]); // змінює тільки тоді коли змінюється testValue
 
+  // 3. модальне вікно з власного хука
+  const { isOpen, openModal, closeModal } = useToogle();
+
   return (
     <div className={s.flexContainer}>
       <div className={s.wrapper}>
@@ -69,6 +75,10 @@ const Counter = () => {
         </div>
         <h3 style={{ color: 'white' }}>Result:{result}</h3>
         <button onClick={() => setTestValue(prev => prev + 1)}>Click</button>
+
+        {/* Open Modal */}
+        {isOpen && <Modal onClose={closeModal}>🦊</Modal>}
+        <button onClick={openModal}>Open Modal</button>
 
         {/* Обрати файл */}
         <input ref={fileRef} style={{ visibility: 'hidden' }} type="file" />

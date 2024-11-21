@@ -1,6 +1,9 @@
 //components
 import { Route, Routes } from 'react-router-dom';
 import Header from './Header/Header';
+import Home from '../pages/Home/Home';
+import About from '../pages/About/About';
+import NotFound from '../pages/NotFound/NotFound';
 
 const App = () => {
   return (
@@ -9,8 +12,9 @@ const App = () => {
 
       {/* маршрутизатор */}
       <Routes>
-        <Route path="/" element={<h2>Homepage</h2>} />
-        <Route path="/about" element={<h2>About page</h2>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );

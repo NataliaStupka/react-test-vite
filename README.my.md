@@ -12,6 +12,9 @@
    		<Route path='/' element={<h2>Homepage</h2>} /> 
    		<Route path="/about" element={<h2>About page</h2>} />
    </Routes>
+3. створюємо сторінки (папка pages). в цій папці створюємо структуру
+   компонентів.
+4. для переходу по сторінкам додаємо Link
 
 <!-- Змінити назву гілки: git branch -m new-name (якщо знаходишся в даній гілці); git
     branch -m old-name new-name (якщо знаходишся в іншій гілці); -->

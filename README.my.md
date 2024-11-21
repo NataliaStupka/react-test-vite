@@ -20,6 +20,7 @@
 5. <!-- стилізація активного лінка -->
    const buildLinkClass = ({ isActive }) => { return clsx(s.link, isActive &&
    s.active); };
+6. Outlet - вказує де треба відмалювати (це children)
 
 <!-- Змінити назву гілки: git branch -m new-name (якщо знаходишся в даній гілці); git
     branch -m old-name new-name (якщо знаходишся в іншій гілці); -->

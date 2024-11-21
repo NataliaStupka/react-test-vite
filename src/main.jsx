@@ -6,19 +6,17 @@ import 'modern-normalize'; //стилі з файлу нормалізації
 
 import App from './components/App.jsx';
 import { Toaster } from 'react-hot-toast'; //тостер(повідомлення)
-import { AuthProvider } from './context/AuthProvider.jsx';
+import { BrowserRouter } from 'react-router-dom';
+
 //<StrictMode> змушує кожний компонент монтуватися двічі (монтування > розмонтування > монтування).
 
 createRoot(document.getElementById('root')).render(
-  <>
-    {/* AuthProvider обгортка для можливості передачі контексту (пропсів) */}
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+  <BrowserRouter>
+    <App />
 
     {/* вспливаючі повідомлення */}
     <Toaster
-      position="top-center"
+      position="top-right"
       reverseOrder={false}
       toastOptions={{
         // Define default options
@@ -39,5 +37,5 @@ createRoot(document.getElementById('root')).render(
         },
       }}
     />
-  </>
+  </BrowserRouter>
 );

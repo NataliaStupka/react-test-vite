@@ -12,6 +12,7 @@ import UserDetails from '../pages/UserDetails/UserDetails';
 import Aim from './NestedRoutes/Aim';
 import Company from './NestedRoutes/Company';
 import Team from './NestedRoutes/Team';
+import Posts from './NestedRoutes/Posts';
 
 const App = () => {
   return (
@@ -24,13 +25,17 @@ const App = () => {
 
         <Route path="/users" element={<Users />} />
         {/* :userId - динамічний параметр */}
-        <Route path="/users/:userId" element={<UserDetails />} />
+        <Route path="/users/:userId" element={<UserDetails />}>
+          <Route path="info" element={<h2>test info</h2>} />
+          <Route path="posts" element={<Posts />} />
+        </Route>
 
         <Route path="/about" element={<About />}>
           <Route path="aim" element={<Aim />} />
           <Route path="company" element={<Company />} />
           <Route path="team" element={<Team />} />
         </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>

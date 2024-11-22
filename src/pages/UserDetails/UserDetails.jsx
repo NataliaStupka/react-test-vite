@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { fetchUserById } from '../../services/api';
 
 const UserDetails = () => {
-  // витягує айдішнік
-  const { userId } = useParams();
+  const { userId } = useParams(); // витягує айдішнік
+  const navigate = useNavigate(); //приймає шлях
 
   const [user, setUser] = useState(null);
 
@@ -26,6 +26,8 @@ const UserDetails = () => {
 
   return (
     <div>
+      {/* в navigate пишемо абсолютний шлях '/users', або піднятися на одну сходинку вище (-1) */}
+      <button onClick={() => navigate(-1)}>Go back</button>
       <img src={user.image} />
       <h2>
         {user.lastName} {user.firstName}

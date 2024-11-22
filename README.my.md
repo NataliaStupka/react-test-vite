@@ -2,6 +2,12 @@
 
 <!-- rafce - 'розгорнути' компонент -->
 
+<!-- Навігація -->
+
+1. Пошук: компонент SearchBar
+
+<!-- Маршрутизація -->
+
 1. React не має власний маршрутизатор. Встановлюємо маршрутизатор React Router
    (npm install react-router-dom). Для запуску маршрутизатора огортаєм в main
    <BrowserRouter><App /></BrowserRouter>

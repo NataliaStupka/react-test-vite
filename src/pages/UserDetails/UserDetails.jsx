@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Suspense, useEffect, useRef, useState } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { fetchUserById } from '../../services/api';
 
 const UserDetails = () => {
   const { userId } = useParams(); // витягує айдішнік
-  const navigate = useNavigate(); //приймає шлях
-
   const [user, setUser] = useState(null);
+
+  //кнопка Go back
+  const location = useLocation();
+  console.log('location2', location);
+  //поверни до мисця звідки прийшов, або до початку
+  const goBackLink = useRef(location.state ?? '/users'); //useRef запише лінк при першому рендері
 
   //рендериться після компоненту
   //як тільки поміняється userId  - зобимо ще один fetch
@@ -26,8 +30,9 @@ const UserDetails = () => {
 
   return (
     <div>
-      {/* в navigate пишемо абсолютний шлях '/users', або піднятися на одну сходинку вище (-1) */}
-      <button onClick={() => navigate(-1)}>Go back</button>
+      {/* кнопка Go back*/}
+
+      <Link to={goBackLink.current}>Go back</Link>
       <img src={user.image} />
       <h2>
         {user.lastName} {user.firstName}
@@ -36,7 +41,9 @@ const UserDetails = () => {
         <Link to="info">Show info</Link>
         <Link to="posts">Show posts</Link>
       </nav>
-      <Outlet />
+      <Suspense fallback={<h2>Loading second suspense 😎</h2>}>
+        <Outlet />
+      </Suspense>
     </div>
   );
 };

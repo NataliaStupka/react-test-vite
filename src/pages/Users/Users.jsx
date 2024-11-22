@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { fetchUsers } from '../../services/api';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import SearchBar from '../../components/SearchBar/SearchBar';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const location = useLocation(); //це об'єкт місця знаходження користувача
+  console.log('location1:', location);
 
   useEffect(() => {
     const getData = async () => {
@@ -39,7 +42,8 @@ const Users = () => {
         {filteredData.map(user => (
           <li key={user.id}>
             {/* посилання повинно бути строкою, тому id прводимо до строки .toString() */}
-            <Link to={user.id.toString()}>
+            {/* в state кидаємо всю локацію (і цей об'єкт локації location потрапляє в маршрут UserDetails) */}
+            <Link to={user.id.toString()} state={location}>
               <p>
                 {/* &nbsp; - пробіл */}
                 {user.firstName} &nbsp;

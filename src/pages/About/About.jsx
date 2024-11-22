@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
 const About = () => {
@@ -28,7 +28,9 @@ const About = () => {
       </nav>
       {/* де відмалювати  NavLink*/}
       <div style={{ backgroundColor: 'yellow', width: '40vw', height: '40vh' }}>
-        <Outlet />
+        <Suspense fallback={<h2>Loading about suspense 🤗</h2>}>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   );

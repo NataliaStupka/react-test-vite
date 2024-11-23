@@ -9,7 +9,7 @@
 
 <!-- const MY_KEY = import.meta.env.VITA_API_KEY -->
 
-<!-- *== Навігація ==* -->
+<!-- *== 05_2 - Навігація ==* -->
 <!-- useLocation(), useSearchParams(), useNavigation() -->
 
 1. Пошук: компонент SearchBar
@@ -35,7 +35,7 @@
 7. import {lazy} from 'react' - асинхронне завантаження компонента
 <!-- const About = lazy(() => import('../pages/About/About')); -->
 
-<!-- *=== Маршрутизація ===* -->
+<!-- *===05_1 - Маршрутизація ===* -->
 
 1. React не має власний маршрутизатор. Встановлюємо маршрутизатор React Router
    (npm install react-router-dom). Для запуску маршрутизатора огортаєм в main

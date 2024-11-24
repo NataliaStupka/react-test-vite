@@ -21,11 +21,12 @@ const App = () => {
 
       {/* маршрутизатор */}
       <Routes>
+        {/* path - шлях */}
         <Route path="/" element={<Home />} />
 
         <Route path="/users" element={<Users />} />
-        {/* :userId - динамічний параметр */}
         <Route path="/users/:userId" element={<UserDetails />}>
+          {/* :userId - динамічний параметр */}
           <Route path="info" element={<h2>test info</h2>} />
           <Route path="posts" element={<Posts />} />
         </Route>

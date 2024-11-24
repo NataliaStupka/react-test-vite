@@ -18,8 +18,9 @@
    використовуємо <Link to="/"></Link> або <NavLink to="/"></NavLink> (можна
    стилізувати, наприклад додати активна сторінка (5пункт))
 5. <!-- стилізація активного лінка -->
-   const buildLinkClass = ({ isActive }) => { return clsx(s.link, isActive &&
-   s.active); };
+   - NavLink автоматично навішує флаг isActive на кожне своє посилання; const
+     buildLinkClass = ({ isActive }) => { return clsx(s.link, isActive &&
+     s.active); };
 6. Outlet - вказує де треба відмалювати (це children)
 7. useParams() - дає можливість витягти всі параметри з :
 

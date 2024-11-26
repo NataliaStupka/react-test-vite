@@ -7,6 +7,7 @@ const UserDetails = () => {
   const [user, setUser] = useState(null);
 
   //кнопка Go back
+  // const navigate = useNavigate(); //кнопка Go back шаг назад або на якусь сторінку
   const location = useLocation();
   console.log('location2', location);
   //поверни до мисця звідки прийшов, або до початку

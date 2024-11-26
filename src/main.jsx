@@ -1,41 +1,17 @@
-//import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { App } from './components/App';
+import './index.css';
 
-import './index.css'; //глобальні стилі
-import 'modern-normalize'; //стилі з файлу нормалізації
+// 1. Імпортуємо провайдер
+import { Provider } from 'react-redux';
+// 2. Імпортуємо створений стор
+import { store } from './redux/store';
 
-import App from './components/App.jsx';
-import { Toaster } from 'react-hot-toast'; //тостер(повідомлення)
-import { BrowserRouter } from 'react-router-dom';
-
-//<StrictMode> змушує кожний компонент монтуватися двічі (монтування > розмонтування > монтування).
-
-createRoot(document.getElementById('root')).render(
-  <BrowserRouter>
-    <App />
-
-    {/* вспливаючі повідомлення */}
-    <Toaster
-      position="top-right"
-      reverseOrder={false}
-      toastOptions={{
-        // Define default options
-        className: '',
-        duration: 2000,
-        style: {
-          background: '#363636',
-          color: '#fff',
-        },
-
-        // Default options for specific types
-        success: {
-          duration: 1000,
-          theme: {
-            primary: 'green',
-            secondary: 'black',
-          },
-        },
-      }}
-    />
-  </BrowserRouter>
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>
 );

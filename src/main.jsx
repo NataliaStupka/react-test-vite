@@ -6,7 +6,7 @@ import './index.css';
 // 1. Імпортуємо провайдер
 import { Provider } from 'react-redux';
 // 2. Імпортуємо створений стор
-import { store } from './redux/store';
+import { store } from './redux/store'; //створили на початку
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

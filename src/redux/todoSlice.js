@@ -27,13 +27,13 @@ const slice = createSlice({
       state.items.push(action.payload);
     },
 
-    //пошук
+    //--пошук
     //фраза по якій будемо шукати (SearchBar)
     changeFilter: (state, action) => {
       state.filter = action.payload;
     },
 
-    //перемикач
+    //--перемикач
     toggleTodo: (state, action) => {
       // state.items = state.items.map(item =>
       //                               //розсипаємо і міняємо його completed
@@ -53,7 +53,7 @@ const slice = createSlice({
       }
     },
 
-    //редагувати
+    //--редагувати
     editTodo: (state, action) => {
       const item = state.items.find(item => item.id === action.payload.id);
       item.todo = action.payload.todo;
@@ -61,7 +61,7 @@ const slice = createSlice({
   },
 });
 
-//slice в selector:
+//useSelector в slice:
 //state - загальний(store), todos - назва слайсу, items - занчення в initialState
 export const selectTodos = state => state.todos.items;
 //export const { selectTodos } = slice.selectors; // 🥳
@@ -72,5 +72,6 @@ export const selectFilter = state => state.todos.filter;
 //використати actions
 export const { removeTodo, addTodo, changeFilter, toggleTodo, editTodo } =
   slice.actions;
+
 //експортуємо slice
 export const todoReducer = slice.reducer;

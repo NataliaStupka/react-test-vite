@@ -1,14 +1,41 @@
 # react-test-vite
 
-1. встановлення **Redux Toolkit** (npm install @reduxjs/toolkit )
-2. використання **React та Redux разом** (npm install react-redux)
-3. 1. створили папку Redux, в ній; файл store, папку з 'фічею' (в даному випадку
+<!-- ===========6 модуль - 2 частина========================== -->
+
+1. створили файл **counterSlice** поруч із store. в ньму початковий стан
+   **initialState** (а також reducer і action);
+2. Викликаємо функцію **createSlice** з "@reduxjs/toolkit" і внеї поміщаємо
+   **об'єкт налаштувань** {name, initialState, reducers: {}};
+3. в store замінюємо { counterReducer } from './counter/reducer'; на {
+   counterReducer } from './counterSlice';
+4. !!!! **redux-persist** - (npm i redux-persist) бібліотека як _LocalStorige_
+   для Redux (документацію можна знайти в redux-toolkit через пошук 'Use with
+   Redux-Persist). (1)другий та третій імпорт з докум.Redux-Persist вставляємо в
+   store; (2) копіюємо persistConfig, persistedReducer, middleware, persistor -
+   вставляємо в store; PersistGate - огорнути в main App;
+
+- **РОБИМО ОДІН РАЗ НА ПРОЕКТ**!;
+
+<!-- =====Todo==== -->
+
+1. в redux створюємо todoSlice.js(initialState, slice(name, initialState,
+   reducers));
+2. експортуємо slice і пидключаємо його в store
+3. slice в selector: в todosSlice - export const selectTodos = state =>
+   state.todos.items; в компоненті const todos = useSelector(selectTodos);
+   <!--  -->
+   <!--  -->
+   <!-- ===========6 модуль - 1 частина========================== -->
+
+4. встановлення **Redux Toolkit** (npm install @reduxjs/toolkit )
+5. використання **React та Redux разом** (npm install react-redux)
+6. 1. створили папку Redux, в ній; файл store, папку з 'фічею' (в даному випадку
       "counter") в ній файл reducer.js(початковий стан, та функція
       reducer(приймає старий state, повертає новий ))
    2. На store
-4. на main огорнути **<Provider store={store}>**
-5. витягуєм counter через **useSelector**
-6. в **action** винесемо функції. Використовуємо **createAction**()
+7. на main огорнути **<Provider store={store}>**
+8. витягуєм counter через **useSelector**
+9. в **action** винесемо функції. Використовуємо **createAction**()
 <!-- =9=9=9=9=9=9=9=99=9=9=9=9=9=9=9=9=9=9=9=9 -->
 
 Redux - бібліотек керування станом програми;

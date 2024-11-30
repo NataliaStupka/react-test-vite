@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux';
 import s from './Counter.module.css';
 
+// import {changeStep, decrement, increment, reset} from '../../redux/counter/action';
 import {
-  changeStep,
-  decrement,
   increment,
+  decrement,
   reset,
-} from '../../redux/counter/action';
+  changeStep,
+} from '../../redux/counterSlice';
 
 export const Counter = () => {
   //витягуєм counter через useSelector (в redux counter counter)
@@ -15,15 +16,19 @@ export const Counter = () => {
 
   //помічникб, керує процесами змін
   const dispatch = useDispatch();
+  //+
   const handlePlusClick = () => {
     dispatch(increment());
   };
+  //-
   const handleMinusClick = () => {
     dispatch(decrement());
   };
+  //reset
   const handleResetClick = () => {
     dispatch(reset());
   };
+  //hangeStep
   const handleChangeStep = e => {
     dispatch(changeStep(+e.target.value));
     // dispatch(changeStep(Number(e.target.value)));

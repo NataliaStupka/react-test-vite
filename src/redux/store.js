@@ -12,10 +12,12 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-//
+import storage from 'redux-persist/lib/storage'; //persist
+
+//reducer
 import { todoReducer } from './todoSlice';
 
+//persist
 const persistConfig = {
   key: 'counterPersistor', // як буде записано в LocalStorage
   version: 1,
@@ -29,7 +31,7 @@ const persistConfigTodos = {
   //blacklist: ['filter'], //вказую, що не зберігаю
 };
 
-//обгортка
+//обгортка persist
 const persistedReducer = persistReducer(persistConfig, counterReducer); //
 const persistedReducerTodos = persistReducer(persistConfigTodos, todoReducer);
 //--- ↑ докум.Redux-Persist------
@@ -42,7 +44,7 @@ export const store = configureStore({
     todos: persistedReducerTodos, //підключили todoReducer з todoSlice
   },
 
-  // *** 2.  ↓ копіюємо з з докум.Redux-Persist (для redux-persist)
+  // *** 2. persist ↓ копіюємо з з докум.Redux-Persist (для redux-persist)
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: {
@@ -52,5 +54,5 @@ export const store = configureStore({
   //--- ↑ докум.Redux-Persist------
 });
 
-// *** 3.  ↓ копіюємо з з докум.Redux-Persist (для redux-persist)
+// *** 3. persist ↓ копіюємо з з докум.Redux-Persist (для redux-persist)
 export let persistor = persistStore(store);

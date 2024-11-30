@@ -68,7 +68,8 @@ export const selectTodos = state => state.todos.items;
 
 export const selectFilter = state => state.todos.filter;
 
-//використанти actions
+//------
+//використати actions
 export const { removeTodo, addTodo, changeFilter, toggleTodo, editTodo } =
   slice.actions;
 //експортуємо slice

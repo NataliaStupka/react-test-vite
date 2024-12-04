@@ -1,8 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { fetchTodos } from './operations'; //запит
+
 const initialState = {
   items: [{ id: 123, todo: 'Learn React.', completed: true }],
   filter: '', //те що шукаємо (фільтруємо по цьому значенню)
+  //
+  isLoading: false,
 };
 
 const slice = createSlice({
@@ -58,6 +62,18 @@ const slice = createSlice({
       const item = state.items.find(item => item.id === action.payload.id);
       item.todo = action.payload.todo;
     },
+  },
+
+  //запит
+  //builder (як switch)- функція яка має свої методи
+  extraReducers: builder => {
+    builder
+      .addCase(fetchTodos.fulfilled, (state, action) => {
+        state.items = action.payload;
+      })
+      .addCase(fetchTodos.pending, (state, action) => {
+        state.isLoading = true;
+      });
   },
 });
 

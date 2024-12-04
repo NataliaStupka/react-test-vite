@@ -8,7 +8,8 @@ import { Provider } from 'react-redux';
 // 2. Імпортуємо створений стор
 import { store, persistor } from './redux/store'; //створили на початку
 
-import { PersistGate } from 'redux-persist/integration/react'; //persistor з документації
+import { PersistGate } from 'redux-persist/integration/react'; //persistor з документації, збереження в LocalStorage
+// PersistGate - забезпечити відновлення стану додатку перед його рендерингом.
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

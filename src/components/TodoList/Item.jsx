@@ -1,6 +1,7 @@
 import { useDispatch } from 'react-redux';
 import s from './TodoList.module.css';
 import { editTodo, removeTodo, toggleTodo } from '../../redux/todoSlice';
+import { deleteTodo } from '../../redux/operations';
 
 const Item = ({ completed, todo, id }) => {
   const dispatch = useDispatch();
@@ -28,7 +29,8 @@ const Item = ({ completed, todo, id }) => {
         Edit
       </button>
 
-      <button onClick={() => dispatch(removeTodo(id))}>Delete</button>
+      {/* замінили removeTodo на  deleteTodo*/}
+      <button onClick={() => dispatch(deleteTodo(id))}>Delete</button>
     </li>
   );
 };

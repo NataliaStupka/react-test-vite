@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { fetchTodos } from './operations'; //запит
+import { deleteTodo, fetchTodos } from './operations'; //запит
 
 const initialState = {
   items: [{ id: 123, todo: 'Learn React.', completed: true }],
@@ -73,6 +73,9 @@ const slice = createSlice({
       })
       .addCase(fetchTodos.pending, (state, action) => {
         state.isLoading = true;
+      })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        state.items = state.items.filter(item => item.id !== action.payload.id); //локально видаляємо на стороні клієнта
       });
   },
 });

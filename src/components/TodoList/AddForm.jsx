@@ -1,8 +1,9 @@
 import { Field, Form, Formik } from 'formik';
 import s from './TodoList.module.css';
 import { useDispatch } from 'react-redux';
-import { addTodo } from '../../redux/todoSlice';
+//import { addTodo } from '../../redux/todoSlice';
 import { nanoid } from '@reduxjs/toolkit'; //включений в Redux
+import { addTodo } from '../../redux/operations';
 
 export const AddForm = () => {
   const initialValues = { todo: '' };
@@ -16,6 +17,7 @@ export const AddForm = () => {
       todo: values.todo, //з name Field
       completed: false,
     };
+    //addTodo з operations.js - запише в бекенді
     dispatch(addTodo(newTodo));
   };
 

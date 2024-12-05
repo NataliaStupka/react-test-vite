@@ -1,12 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { deleteTodo, fetchTodos } from './operations'; //запит
+import { addTodo, editTodo, deleteTodo, fetchTodos } from './operations'; //запит
 
 const initialState = {
   items: [{ id: 123, todo: 'Learn React.', completed: true }],
   filter: '', //те що шукаємо (фільтруємо по цьому значенню)
   //
   isLoading: false,
+  isError: false,
 };
 
 const slice = createSlice({
@@ -21,15 +22,15 @@ const slice = createSlice({
   //   },
 
   reducers: {
-    // actions       (state - загальний(store))
-    removeTodo: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
-    },
+    // // actions       (state - загальний(store))
+    // removeTodo: (state, action) => {
+    //   state.items = state.items.filter(item => item.id !== action.payload);
+    // },
 
-    addTodo: (state, action) => {
-      //пишемо за допомогою imer
-      state.items.push(action.payload);
-    },
+    // addTodo: (state, action) => {
+    //   //пишемо за допомогою imer
+    //   state.items.push(action.payload);
+    // },
 
     //--пошук
     //фраза по якій будемо шукати (SearchBar)
@@ -57,11 +58,11 @@ const slice = createSlice({
       }
     },
 
-    //--редагувати
-    editTodo: (state, action) => {
-      const item = state.items.find(item => item.id === action.payload.id);
-      item.todo = action.payload.todo;
-    },
+    // //--редагувати
+    // editTodo: (state, action) => {
+    //   const item = state.items.find(item => item.id === action.payload.id);
+    //   item.todo = action.payload.todo;
+    // },
   },
 
   //запит
@@ -70,13 +71,57 @@ const slice = createSlice({
     builder
       .addCase(fetchTodos.fulfilled, (state, action) => {
         state.items = action.payload;
-      })
-      .addCase(fetchTodos.pending, (state, action) => {
-        state.isLoading = true;
+        state.isLoading = false;
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
         state.items = state.items.filter(item => item.id !== action.payload.id); //локально видаляємо на стороні клієнта
-      });
+      })
+      .addCase(addTodo.fulfilled, (state, action) => {
+        state.items.push(action.payload);
+      })
+      .addCase(editTodo.fulfilled, (state, action) => {
+        const item = state.items.find(item => item.id === action.payload.id);
+        item.todo = action.payload.todo;
+      })
+
+      //якщо спрацьовує одна із
+      .addMatcher(
+        isAnyOf(
+          addTodo.pending,
+          editTodo.pending,
+          deleteTodo.pending,
+          fetchTodos.pending
+        ),
+        (state, action) => {
+          state.isError = false;
+          state.isLoading = true;
+        }
+      )
+
+      .addMatcher(
+        isAnyOf(
+          addTodo.rejected,
+          editTodo.rejected,
+          deleteTodo.rejected,
+          fetchTodos.rejected
+        ),
+        state => {
+          state.isLoading = false;
+          state.isError = true;
+        }
+      )
+
+      .addMatcher(
+        isAnyOf(
+          addTodo.fulfilled,
+          editTodo.fulfilled,
+          deleteTodo.fulfilled,
+          fetchTodos.fulfilled
+        ),
+        state => {
+          state.isLoading = false;
+        }
+      );
   },
 });
 
@@ -87,10 +132,11 @@ export const selectTodos = state => state.todos.items;
 
 export const selectFilter = state => state.todos.filter;
 
+export const selectIsError = state => state.todosisError; //todoList
+export const selectisLoading = state => state.todos.isLoading; //todoList
 //------
 //використати actions
-export const { removeTodo, addTodo, changeFilter, toggleTodo, editTodo } =
-  slice.actions;
+export const { removeTodo, changeFilter, toggleTodo } = slice.actions;
 
 //експортуємо slice
 export const todoReducer = slice.reducer;

@@ -1,16 +1,18 @@
-import { selectFilter, selectTodos } from '../../redux/todoSlice';
+import { useSelector } from 'react-redux';
 import Item from './Item';
 import s from './TodoList.module.css';
 
-import { useSelector } from 'react-redux';
+import {
+  selectFilter,
+  selectFilteredTask,
+  selectFilteredTasksMemo,
+} from '../../redux/selectors';
 
 export const List = () => {
-  //state - загальний(store), todos - назва слайсу, items - занчення в initialState
-  // const todos = useSelector(state => state.todos.items);
-  const todos = useSelector(selectTodos); //з todosSlice в якому selectTodos = state => state.todos.items;
+  const todos = useSelector(selectFilteredTasksMemo);
 
   //для рендера не просто todos, а і відфільтрованого
-  const filter = useSelector(selectFilter); //по чому фільтруємо (з todosSlice в якому selectFilter = state => state.todos.filter)
+  const filter = useSelector(selectFilter); //по чому фільтруємо (з selectors в якому selectFilter = state => state.todos.filter)
   const filterData = todos.filter(item =>
     item.todo.toLowerCase().includes(filter.toLowerCase())
   );

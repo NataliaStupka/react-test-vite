@@ -1,11 +1,18 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 
-import { addTodo, editTodo, deleteTodo, fetchTodos } from './operations'; //запит
+import {
+  addTodo,
+  editTodo,
+  toggleTodo,
+  deleteTodo,
+  fetchTodos,
+} from './operations'; //запит
 
 const initialState = {
   items: [{ id: 123, todo: 'Learn React.', completed: true }],
   filter: '', //те що шукаємо (фільтруємо по цьому значенню)
   //
+  visibilityFilter: 'all', //кнопкі фільтру: all, complited, active
   isLoading: false,
   isError: false,
 };
@@ -14,57 +21,28 @@ const slice = createSlice({
   name: 'todos',
   initialState,
 
-  //   //з нової версії додалась можливість додавати selectors 🥳
-  //   //норм для звичайних селекторів
-  //   selectors: {
-  //       selectTodos: state => state.items,
-  //       //та інші
-  //   },
-
+  //те що локально змінює
   reducers: {
-    // // actions       (state - загальний(store))
-    // removeTodo: (state, action) => {
-    //   state.items = state.items.filter(item => item.id !== action.payload);
-    // },
-
-    // addTodo: (state, action) => {
-    //   //пишемо за допомогою imer
-    //   state.items.push(action.payload);
-    // },
-
     //--пошук
     //фраза по якій будемо шукати (SearchBar)
     changeFilter: (state, action) => {
       state.filter = action.payload;
     },
 
+    changeVisibilityFilter: (state, action) => {
+      state.visibilityFilter = action.payload;
+    },
+
     //--перемикач
     toggleTodo: (state, action) => {
-      // state.items = state.items.map(item =>
-      //                               //розсипаємо і міняємо його completed
-      //   item.id === action.payload ? {...item, completed: !item.completed,} : item
-      // );
-
-      //або --
-      //   const itemIndex = state.items.findIndex(
-      //     item => item.id === action.payload
-      //   );
-      //   state.items[itemIndex].completed = !state.items[itemIndex].completed;
-
-      //   або --
       const item = state.items.find(item => item.id === action.payload);
       if (item !== -1) {
         item.completed = !item.completed;
       }
     },
-
-    // //--редагувати
-    // editTodo: (state, action) => {
-    //   const item = state.items.find(item => item.id === action.payload.id);
-    //   item.todo = action.payload.todo;
-    // },
   },
 
+  //те що змінює на сервері
   //запит
   //builder (як switch)- функція яка має свої методи
   extraReducers: builder => {
@@ -82,6 +60,10 @@ const slice = createSlice({
       .addCase(editTodo.fulfilled, (state, action) => {
         const item = state.items.find(item => item.id === action.payload.id);
         item.todo = action.payload.todo;
+      })
+      .addCase(toggleTodo.fulfilled, (state, { payload }) => {
+        const item = state.items.find(item => item.id === payload.id);
+        item.completed = !item.completed;
       })
 
       //якщо спрацьовує одна із
@@ -125,18 +107,12 @@ const slice = createSlice({
   },
 });
 
-//useSelector в slice:
-//state - загальний(store), todos - назва слайсу, items - занчення в initialState
-export const selectTodos = state => state.todos.items;
-//export const { selectTodos } = slice.selectors; // 🥳
+//selector перенесено в папку selector
 
-export const selectFilter = state => state.todos.filter;
-
-export const selectIsError = state => state.todosisError; //todoList
-export const selectisLoading = state => state.todos.isLoading; //todoList
 //------
 //використати actions
-export const { removeTodo, changeFilter, toggleTodo } = slice.actions;
+export const { removeTodo, changeFilter, changeVisibilityFilter } =
+  slice.actions;
 
 //експортуємо slice
 export const todoReducer = slice.reducer;

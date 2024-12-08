@@ -1,17 +1,17 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from "@reduxjs/toolkit";
 
-import { addTodo, editTodo, deleteTodo, fetchTodos } from './operations'; //запит
+import { addTodo, editTodo, deleteTodo, fetchTodos } from "./operations"; //запит
 
 const initialState = {
-  items: [{ id: 123, todo: 'Learn React.', completed: true }],
-  filter: '', //те що шукаємо (фільтруємо по цьому значенню)
+  items: [{ id: 123, todo: "Learn React.", completed: true }],
+  filter: "", //те що шукаємо (фільтруємо по цьому значенню)
   //
   isLoading: false,
   isError: false,
 };
 
 const slice = createSlice({
-  name: 'todos',
+  name: "todos",
   initialState,
 
   //   //з нової версії додалась можливість додавати selectors 🥳
@@ -52,7 +52,7 @@ const slice = createSlice({
       //   state.items[itemIndex].completed = !state.items[itemIndex].completed;
 
       //   або --
-      const item = state.items.find(item => item.id === action.payload);
+      const item = state.items.find((item) => item.id === action.payload);
       if (item !== -1) {
         item.completed = !item.completed;
       }
@@ -67,20 +67,22 @@ const slice = createSlice({
 
   //запит
   //builder (як switch)- функція яка має свої методи
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       .addCase(fetchTodos.fulfilled, (state, action) => {
         state.items = action.payload;
         state.isLoading = false;
       })
       .addCase(deleteTodo.fulfilled, (state, action) => {
-        state.items = state.items.filter(item => item.id !== action.payload.id); //локально видаляємо на стороні клієнта
+        state.items = state.items.filter(
+          (item) => item.id !== action.payload.id
+        ); //локально видаляємо на стороні клієнта
       })
       .addCase(addTodo.fulfilled, (state, action) => {
         state.items.push(action.payload);
       })
       .addCase(editTodo.fulfilled, (state, action) => {
-        const item = state.items.find(item => item.id === action.payload.id);
+        const item = state.items.find((item) => item.id === action.payload.id);
         item.todo = action.payload.todo;
       })
 
@@ -105,7 +107,7 @@ const slice = createSlice({
           deleteTodo.rejected,
           fetchTodos.rejected
         ),
-        state => {
+        (state) => {
           state.isLoading = false;
           state.isError = true;
         }
@@ -118,7 +120,7 @@ const slice = createSlice({
           deleteTodo.fulfilled,
           fetchTodos.fulfilled
         ),
-        state => {
+        (state) => {
           state.isLoading = false;
         }
       );
@@ -127,13 +129,13 @@ const slice = createSlice({
 
 //useSelector в slice:
 //state - загальний(store), todos - назва слайсу, items - занчення в initialState
-export const selectTodos = state => state.todos.items;
+export const selectTodos = (state) => state.todos.items;
 //export const { selectTodos } = slice.selectors; // 🥳
 
-export const selectFilter = state => state.todos.filter;
+export const selectFilter = (state) => state.todos.filter;
 
-export const selectIsError = state => state.todosisError; //todoList
-export const selectisLoading = state => state.todos.isLoading; //todoList
+export const selectIsError = (state) => state.todos.isError; //todoList
+export const selectisLoading = (state) => state.todos.isLoading; //todoList
 //------
 //використати actions
 export const { removeTodo, changeFilter, toggleTodo } = slice.actions;

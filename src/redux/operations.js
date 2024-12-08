@@ -1,28 +1,33 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 //сайт https://mockapi.io/
 //andpoint
-axios.defaults.baseURL = 'https://6750ab5169dc1669ec1bf24f.mockapi.io';
+axios.defaults.baseURL = "https://6750ab5169dc1669ec1bf24f.mockapi.io";
 
 //викликаємо цю функцію в todoList                          // _ це можуть бути дані, але для get дані не потрібні
 export const fetchTodos = createAsyncThunk(
-  'todos/fetchAll',
+  "todos/fetchAll",
   async (_, thunkAPI) => {
     try {
-      const response = await axios.get('/todos');
+      const response = await axios.get("/todos");
       return response.data; //ловимо в slice (нижче reducer) через extraReducer
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
+//з конспекта:
+// export const fetchTasks = createAsyncThunk("tasks/fetchAll", async () => {
+//   const response = await axios.get("/tasks");
+//   return response.data;
+// });
 
 //так видалиться на бекенді
 // використовуємо в Item.js при видаленні todo
 //також додаємо у slice addCase
 export const deleteTodo = createAsyncThunk(
-  'todos/deleteTodo',
+  "todos/deleteTodo",
   async (id, thunkAPI) => {
     try {
       const response = await axios.delete(`/todos/${id}`);
@@ -35,7 +40,7 @@ export const deleteTodo = createAsyncThunk(
 
 //в addForm, а також в slice addCase
 export const addTodo = createAsyncThunk(
-  'todos/addTodo',
+  "todos/addTodo",
   async (body, thunkAPI) => {
     try {
       const response = await axios.post(`/todos`, body);
@@ -48,7 +53,7 @@ export const addTodo = createAsyncThunk(
 
 //Item.js
 export const editTodo = createAsyncThunk(
-  'todos/editTodo',
+  "todos/editTodo",
   async (body, thunkAPI) => {
     try {
       const response = await axios.put(`/todos/${body.id}`, body);
@@ -60,7 +65,7 @@ export const editTodo = createAsyncThunk(
 );
 
 export const toggleTodo = createAsyncThunk(
-  'todos/toggleTodo',
+  "todos/toggleTodo",
   async (body, thunkAPI) => {
     try {
       const response = await axios.put(`/todos/${body.id}`, body);

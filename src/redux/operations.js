@@ -17,11 +17,6 @@ export const fetchTodos = createAsyncThunk(
     }
   }
 );
-//з конспекта:
-// export const fetchTasks = createAsyncThunk("tasks/fetchAll", async () => {
-//   const response = await axios.get("/tasks");
-//   return response.data;
-// });
 
 //так видалиться на бекенді
 // використовуємо в Item.js при видаленні todo

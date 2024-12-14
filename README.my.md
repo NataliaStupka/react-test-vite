@@ -1,12 +1,16 @@
 # react-test-vite
 
-<!-- 7 модуль - 2 частина Selector-->
+<!-- <!-- 8 модуль - 1 частина Token, Login-> -->
 
-<!--  -->
-<!--  -->
-<!-- 7 модуль - 1 частина -->
+1. <BrouserRouter><App/></BrouserRouter> - маршрутизатор
+2. Змінили в App з компонентів на <Routes><Route path='/' element={}></Route></Routes>
+3. Layout.js - повертає як компонент <Header> і Outlet (куди підставиться маршрут)
+4. pages: Home
+<!----------- Delete ------ -->
 
 асинхронний Redux сайт https://mockapi.io/
+
+<!-- 7 модуль - 1 частина -->
 
 1.  в папці redux створюємо файл operations.js;
 2.  Redux Toolkit має функцію **createAsyncThunk(type, payloadCreator)**; fetch,

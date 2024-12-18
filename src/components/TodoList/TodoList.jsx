@@ -1,18 +1,17 @@
-import { AddForm } from './AddForm';
-import { List } from './List';
-import { SearchBar } from './SearchBar';
-import s from './TodoList.module.css';
+import { AddForm } from "./AddForm";
+import { List } from "./List";
+import { SearchBar } from "./SearchBar";
+import s from "./TodoList.module.css";
 
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTodos } from '../../redux/operations'; //запит
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchTodos } from "../../redux/operations"; //запит
 //import { selectisLoading } from '../../redux/todoSlice';
 import {
   selectisLoading,
-  selectUncompletedTodos,
   selectUncompletedTodosMemo,
-} from '../../redux/selectors';
-import Filter from './Filter';
+} from "../../redux/selectors";
+import Filter from "./Filter";
 
 export const TodoList = () => {
   const dispatch = useDispatch();

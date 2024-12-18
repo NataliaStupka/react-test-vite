@@ -1,12 +1,28 @@
 import { Field, Form, Formik } from "formik";
 import s from "./RegisterForm.module.css";
-import { useDispatch } from "react-redux";
+
 import { register } from "../../redux/auth/operation"; //регістрація
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import toast from "react-hot-toast"; //ЧОМУСЬ НЕ ПРАЦЮЄ ?????
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //unwrap - dispatch дочекається відповіді (для перенаправлення на task)
+  //інший варіант if (isLoggedIn) {return <Navigate to="/tasks" />}
   const handleSubmit = (values, options) => {
-    dispatch(register(values));
+    dispatch(register(values))
+      .unwrap()
+      .then((res) => {
+        toast(`Welcome ${res.user.name}`);
+        navigate("/tasks");
+      })
+      .catch(() => {
+        toast.error("Сталися помилка! Спробуй ще раз.");
+      });
     options.resetForm();
   };
 

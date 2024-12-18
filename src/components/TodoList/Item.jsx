@@ -1,8 +1,8 @@
-import { useDispatch } from 'react-redux';
-import s from './TodoList.module.css';
-import { editTodo, deleteTodo, toggleTodo } from '../../redux/operations';
+import { useDispatch } from "react-redux";
+import s from "./TodoList.module.css";
+import { editTodo, deleteTodo, toggleTodo } from "../../redux/operations";
 
-const Item = ({ completed, todo, id }) => {
+const Item = ({ completed, text, id }) => {
   const dispatch = useDispatch();
 
   return (
@@ -11,10 +11,10 @@ const Item = ({ completed, todo, id }) => {
         type="checkbox"
         checked={completed}
         onChange={() =>
-          dispatch(toggleTodo({ id, todo, completed: !completed }))
+          dispatch(toggleTodo({ id, text, completed: !completed }))
         }
       />
-      <p>{todo}</p>
+      <p>{text}</p>
 
       {/* <button onClick={() => dispatch(editTodo({ id, todo: 'Заміняю на цей текст' }))}>
         Edit
@@ -23,7 +23,7 @@ const Item = ({ completed, todo, id }) => {
         onClick={
           () =>
             dispatch(
-              editTodo({ id, todo: prompt('Введіть нове значення: ') ?? todo })
+              editTodo({ id, todo: prompt("Введіть нове значення: ") ?? todo })
             ) // якщо нічого не ввели, то todo (щоб не впала сторінка при null)
         }
       >

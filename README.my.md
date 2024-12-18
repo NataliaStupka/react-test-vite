@@ -1,11 +1,55 @@
 # react-test-vite
 
 <!-- <!-- 8 модуль - 1 частина Token, Login-> -->
+<!-- Swageer - які у бекендера є шляхи, що очікує/приймає -->
+<!-- перевіряємо через postman, або insomner -->
 
+https://connections-api.goit.global/;
+
+**Деплой на Vercel**, при маршрутизації додати файл.
+Для правильної роботи додатка з маршрутизацією після розгортання на Vercel,
+слід додати файл налаштувань vercel.json в кореневу папку проекту.
+
+0. 'переїзд' task з mokapi на goitiApi
 1. <BrouserRouter><App/></BrouserRouter> - маршрутизатор
 2. Змінили в App з компонентів на <Routes><Route path='/' element={}></Route></Routes>
 3. Layout.js - повертає як компонент <Header> і Outlet (куди підставиться маршрут)
-4. pages: Home
+4. pages
+5. operation - slice(user, token, isLoggedIn=true) - component
+6. регістрація: name, email, pasword;
+7. логінізація: email, pasword;
+8. //якщо юзер залогований - перекидуємо на завдання
+   if (isLoggedIn) {
+   return <Navigate to="/tasks" />;
+   }
+   // інший варіант:
+   dispatch().unwrap().then((res) => {
+   toast(`Welcom ${res.user.name}`);
+   navigate("/tasks");
+   })
+9. якщо зараєструвався/залогінився - Не маєш бачити кнопки registration/login;
+10. logout. Використовуємо token
+11. при виході з акаунта, ховати своє, від сторонніх! (в slice користувача, в slice завдань)
+
+<!-- <!-- 8 модуль - 2 частина Token, Login-> -->
+
+- Збереження даних користувача навить при віході/оновлені;
+
+12. persist в store, в main import { PersistGate } from 'redux-persist/integration/react' і огорнути в <PersistGate loading={null} persistor={persistor}>App</PersistGate>
+13. зберегти тільки token
+14. перевірка на App, чі є такий користувач
+15. thunkAPI.getState() - поверне весь store
+16. isRefreshing - щоб інтерфейс 'не блимав' при оновлені сторінки
+17. **приватний маршрут** component - PrivateRoute.jsx - буде обгорткою
+
+- якщо user зареєстрований(true) то поверну йому children(доступ до елементу), інакше відправлю на login
+- якщо клацну на task, то перекине на login
+
+18. <PrivateRoute><Tasks /></PrivateRoute>
+19. **Restrictted маршрут(Route)** component - RestrictedRoute.jsx
+
+- публічний
+
 <!----------- Delete ------ -->
 
 асинхронний Redux сайт https://mockapi.io/

@@ -6,6 +6,7 @@ import { selectFilter, selectFilteredTasksMemo } from "../../redux/selectors";
 
 export const List = () => {
   const todos = useSelector(selectFilteredTasksMemo);
+  console.log("???***", todos);
 
   //для рендера не просто todos, а і відфільтрованого
   const filter = useSelector(selectFilter); //по чому фільтруємо (з selectors в якому selectFilter = state => state.todos.filter)

@@ -68,6 +68,7 @@ export const toggleTodo = createAsyncThunk(
   async (body, thunkAPI) => {
     try {
       const response = await goitApi.patch(`/tasks/${body.id}`, body);
+      console.log("del", body);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
